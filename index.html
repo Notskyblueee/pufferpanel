@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PufferPanel Premium Guide - Notskyblueee</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:#0a0f1c;
+color:white;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:80px 20px;
+background:linear-gradient(135deg,#001f3f,#003366,#001f3f);
+}
+
+.hero h1{
+font-size:48px;
+background:linear-gradient(90deg,#00c6ff,#0072ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+margin-top:15px;
+opacity:0.8;
+}
+
+.hero button{
+margin-top:30px;
+padding:12px 30px;
+border:none;
+background:#0072ff;
+color:white;
+font-weight:600;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.hero button:hover{
+background:#00c6ff;
+}
+
+/* SECTION */
+.section{
+max-width:1000px;
+margin:60px auto;
+padding:30px;
+border-radius:20px;
+position:relative;
+background:rgba(255,255,255,0.03);
+}
+
+/* NEON BORDER */
+.section::before{
+content:"";
+position:absolute;
+top:-2px;left:-2px;right:-2px;bottom:-2px;
+background:linear-gradient(45deg,#00c6ff,#0072ff,#00c6ff);
+z-index:-1;
+border-radius:22px;
+animation:neon 4s linear infinite;
+}
+
+@keyframes neon{
+0%{filter:hue-rotate(0deg);}
+100%{filter:hue-rotate(360deg);}
+}
+
+.section h2{
+color:#00c6ff;
+margin-bottom:15px;
+}
+
+.instructions{
+background:rgba(0,198,255,0.1);
+padding:15px;
+border-left:4px solid #00c6ff;
+border-radius:8px;
+margin-bottom:20px;
+font-size:14px;
+line-height:1.6;
+}
+
+/* COMMAND */
+.command{
+background:#111;
+padding:14px;
+margin:12px 0;
+border-radius:10px;
+cursor:pointer;
+position:relative;
+transition:0.3s;
+border-left:4px solid #00c6ff;
+white-space:pre-line;
+}
+
+.command:hover{
+transform:scale(1.02);
+background:#1a1a1a;
+}
+
+.copy-text{
+position:absolute;
+right:15px;
+top:12px;
+font-size:12px;
+color:#00c6ff;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+padding:40px;
+margin-top:80px;
+border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.footer a{
+color:#00c6ff;
+margin:0 15px;
+text-decoration:none;
+font-weight:600;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+<h1>PufferPanel Installation Guide</h1>
+<p>Complete VPS Setup Tutorial By Notskyblueee 💎</p>
+<button onclick="scrollToInstall()">Start Setup</button>
+</div>
+
+<!-- PUFFER INSTALL -->
+<div class="section" id="install">
+<h2>📦 Step 1 — Install PufferPanel</h2>
+
+<div class="instructions">
+1️⃣ Make sure your VPS is Ubuntu or Debian.<br>
+2️⃣ Login as root user OR use sudo.<br>
+3️⃣ Run commands one by one.<br>
+4️⃣ Click any command to copy automatically.<br><br>
+After installation, panel will run on port 8080.
+</div>
+
+<div class="command" onclick="copyCommand(this)">sudo apt update<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">sudo apt install curl -y<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">curl -s https://packagecloud.io/install/repositories/pufferpanel/pufferpanel/script.deb.sh | sudo bash<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">sudo apt install pufferpanel -y<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">sudo systemctl enable pufferpanel<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">sudo pufferpanel user add<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">sudo systemctl start pufferpanel<span class="copy-text">Copy</span></div>
+
+<div class="instructions">
+✅ Now open browser:<br>
+http://YOUR_SERVER_IP:8080<br>
+Replace YOUR_SERVER_IP with your VPS IP.
+</div>
+
+</div>
+
+<!-- CLOUDFLARE -->
+<div class="section">
+<h2>☁ Step 2 — Setup Cloudflare Tunnel</h2>
+
+<div class="instructions">
+1️⃣ Make sure your domain is added in Cloudflare.<br>
+2️⃣ Replace panel.yourdomain.com with your real domain.<br><br>
+Example:<br>
+If your domain is myhost.com<br>
+Then use: panel.myhost.com<br><br>
+This will secure your panel with HTTPS.
+</div>
+
+<div class="command" onclick="copyCommand(this)">wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">sudo dpkg -i cloudflared-linux-amd64.deb<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">cloudflared tunnel login<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">cloudflared tunnel create pufferpanel<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">nano ~/.cloudflared/config.yml<span class="copy-text">Copy</span></div>
+
+<div class="instructions">
+Paste this inside config.yml file:
+</div>
+
+<div class="command" onclick="copyCommand(this)">
+tunnel: pufferpanel
+credentials-file: /root/.cloudflared/xxxxx.json
+
+ingress:
+  - hostname: panel.yourdomain.com
+    service: http://localhost:8080
+  - service: http_status:404
+<span class="copy-text">Copy</span></div>
+
+<div class="instructions">
+Save file:<br>
+Press CTRL + X → Press Y → Press Enter<br><br>
+Then run:
+</div>
+
+<div class="command" onclick="copyCommand(this)">cloudflared tunnel route dns pufferpanel panel.yourdomain.com<span class="copy-text">Copy</span></div>
+<div class="command" onclick="copyCommand(this)">cloudflared tunnel run pufferpanel<span class="copy-text">Copy</span></div>
+
+<div class="instructions">
+🚀 Now open:<br>
+https://panel.yourdomain.com<br>
+(Change to your domain)
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<p>Connect With Me 💙</p>
+<a href="#">YouTube</a>
+<a href="#">Discord</a>
+<a href="#">Instagram</a>
+<p style="opacity:0.6;margin-top:10px;">© 2026 Notskyblueee</p>
+</div>
+
+<audio id="copySound">
+<source src="https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3">
+</audio>
+
+<script>
+function copyCommand(element){
+let text = element.innerText.replace("Copy","");
+navigator.clipboard.writeText(text.trim());
+document.getElementById("copySound").play();
+
+element.querySelector(".copy-text").innerText="Copied!";
+setTimeout(()=>{
+element.querySelector(".copy-text").innerText="Copy";
+},2000);
+}
+
+function scrollToInstall(){
+document.getElementById("install").scrollIntoView({behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
